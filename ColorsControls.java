@@ -15,7 +15,7 @@ public class ColorsControls extends JPanel implements MouseListener {
     private JPanel redP, blueP, yellowP, greenP, orangeP, pinkP, whiteP, grayP, blackP;
     private JPanel colorsArray[] = {
         redP, blueP, yellowP, greenP, orangeP, pinkP, whiteP, grayP, blackP
-    };
+    }; 
 
     private boolean buttonsArray[] = new boolean[5]; 
 
@@ -25,7 +25,7 @@ public class ColorsControls extends JPanel implements MouseListener {
         this.setPreferredSize(new Dimension(145, 145));
         this.canvas = canvas;
 
-        for(int i = 0; i < this.colorsArray.length; i++){
+        for(int i = 0; i < this.colorsArray.length; i++){ //Giving the same characteristics to all color panels
             this.colorsArray[i] = new JPanel();
             this.colorsArray[0].setBackground(Color.RED);
             this.colorsArray[i].setPreferredSize(new Dimension(40, 40));
@@ -48,17 +48,18 @@ public class ColorsControls extends JPanel implements MouseListener {
 
 
     //*change state of buttons
-    public void setIsDrawSelected(){
-        for(int i = 0; i < this.buttonsArray.length; i++){
+    //*The next functions are fro activating the feature of the button selected
+    public void setIsDrawSelected(){ 
+        for(int i = 0; i < this.buttonsArray.length; i++){ 
             if(i == 0) this.buttonsArray[i] = true;
-            else this.buttonsArray[i] = false;
+            else this.buttonsArray[i] = false; //deactivating the other buttons so only the selected will be used
         }
     }
 
     public void setIsReplaceSelected(){
         for(int i = 0; i < this.buttonsArray.length; i++){
             if(i == 1) this.buttonsArray[i] = true;
-            else this.buttonsArray[i] = false;
+            else this.buttonsArray[i] = false; 
         }
     }
 
@@ -86,23 +87,23 @@ public class ColorsControls extends JPanel implements MouseListener {
     //* -------------- Listeners Methods --------------
     @Override
     public void mouseClicked(MouseEvent evt) {
-        for(int i = 0; i < this.colorsArray.length; i++) {
+        for(int i = 0; i < this.colorsArray.length; i++) { 
             if(evt.getSource() == this.colorsArray[i]){
-                if(this.buttonsArray[0]) {
+                if(this.buttonsArray[0]) { //drawing
                     System.out.println("but 0");
                 }
-                else if (this.buttonsArray[1]) {
+                else if (this.buttonsArray[1]) { //replacing background color
                     this.canvas.changeBackground(this.colorsArray[i].getBackground());
                 }
-                else if (this.buttonsArray[2]) {
+                else if (this.buttonsArray[2]) { //painting a figure
                     System.out.println("but 2");
                 }
-                else if (this.buttonsArray[3]) {
+                else if (this.buttonsArray[3]) { //inputing text
                     System.out.println("but 3");
                 }
             }
         }
-        if (this.buttonsArray[4]) {
+        if (this.buttonsArray[4]) { //clearing the canvas
             this.canvas.clearCanvas();
         }
     }
