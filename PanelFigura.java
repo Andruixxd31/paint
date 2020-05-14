@@ -8,7 +8,7 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
-public class PanelFigura extends JPanel implements MouseListener, MouseMotionListener{
+public class PanelFigura extends JPanel {
 
 	private Figura[] figuritas;
 	private Color color;
@@ -25,6 +25,7 @@ public class PanelFigura extends JPanel implements MouseListener, MouseMotionLis
 	private int size;
 	private int sizeFont;
 	private Figura figurita;
+	private boolean soltar;
 	public PanelFigura() {
 		super();
 		this.setPreferredSize(new Dimension(800,700));
@@ -36,56 +37,49 @@ public class PanelFigura extends JPanel implements MouseListener, MouseMotionLis
 		this.tipoF="Elipse";
 		this.nombreFont="Arial";
 		this.sizeFont=16;
-		this.addMouseListener(this);
-		this.addMouseMotionListener(this);
+		
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		this.CrearFiguras(g);
 		for(int i=0;i<this.size;i++) {
+			System.out.println(figuritas[i]);
 			figuritas[i].pinta(g);
 		}
 	}
 	
-	
 	public void CrearFiguras(Graphics g) {
-		
-		if(this.tipoF=="Elipse") {
-			this.figurita=new Elipse(this.x1, this.y1, this.x2, this.y2, this.color,this.relleno);
+		if(this.soltar) {
+			if(this.tipoF=="Elipse") {
+				this.figurita=new Elipse(this.x1, this.y1, this.x2, this.y2, this.color,this.relleno);
+				this.figurita.pinta(g);
+				
+			}else if(this.tipoF=="Rectangulo") {
+				this.figurita=new Rectangulo(this.x1, this.y1, this.x2, this.y2, this.color,this.relleno);
+				this.figurita.pinta(g);
+			}if(this.tipoF=="Linea") {
+				this.figurita=new Linea(this.x1, this.y1, this.x2, this.y2, this.color);
+				this.figurita.pinta(g);
+				
+			}if(this.tipoF=="Texto") {
+				this.figurita=new Texto(this.x1, this.y1, this.x2, this.y2, this.color, this.nombreFont,this.sizeFont, this.texto);
+				this.figurita.pinta(g);
+			}
 			
-			this.figurita.pinta(g);
-		}else if(this.tipoF=="Rectangulo") {
-			this.figurita=new Rectangulo(this.x1, this.y1, this.x2, this.y2, this.color,this.relleno);
-
-			figurita.pinta(g);
-		}if(this.tipoF=="Linea") {
-			this.figurita=new Linea(this.x1, this.y1, this.x2, this.y2, this.color);
-			figurita.pinta(g);
-		}if(this.tipoF=="Texto") {
-			this.figurita=new Texto(this.x1, this.y1, this.x2, this.y2, this.color, this.nombreFont,this.sizeFont, this.texto);
-			figurita.pinta(g);
 		}
+		
+		
 	}
 
-	
-	@Override
-	public void mousePressed(MouseEvent e) {
-		this.x1=e.getX();
-		this.y1=e.getY();
-	}
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		this.x2=e.getX();
-		this.y2=e.getY();
+	public void agregarFigura() {
+		this.figuritas[this.size++]=this.figurita;
 		this.repaint();
 	}
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		figuritas[this.size++]=this.figurita;
-		//for(Figura tmp: this.figuritas)System.out.println(tmp);
-	}
 
+	public void setSize(int size) {
+		this.size=size;
+	}
 	public int getX1() {
 		return x1;
 	}
@@ -124,22 +118,10 @@ public class PanelFigura extends JPanel implements MouseListener, MouseMotionLis
 
 	public void setFigurita(Figura figurita) {
 		this.figurita = figurita;
-	}
-
-	public void mouseMoved(MouseEvent e) {
 		
 	}
 
-	public void mouseClicked(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-	}
+	
 	public Color getColor() {
 		return color;
 	}
@@ -159,6 +141,7 @@ public class PanelFigura extends JPanel implements MouseListener, MouseMotionLis
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
+
 
 	public void setnombreFont(String font) {
 		this.nombreFont = font;
@@ -185,11 +168,16 @@ public class PanelFigura extends JPanel implements MouseListener, MouseMotionLis
 		for(Figura tmp: this.figuritas) {
 			if(tmp!=null)st+=tmp+"\n";			
 		}
-		return st;
+		return st+"null";
 	}
 	public void setFiguritas(Figura[] figuritas) {
-		this.figuritas=figuritas;
-		this.removeAll();
+		this.soltar=false;
 		this.repaint();
+		this.figuritas=figuritas;
+		
 	}
+	public void setSoltar(boolean soltar) {
+		this.soltar=soltar;
+	}
+
 }

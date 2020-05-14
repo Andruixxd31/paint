@@ -1,3 +1,6 @@
-Rectangulo,84,107,436,393,255,0,0,false
-Linea,60,68,585,454,255,0,0
-
+Elipse,85,73,494,401,255,0,0,false
+Rectangulo,40,74,213,260,255,0,0,true
+Rectangulo,493,103,681,281,255,0,0,true
+Rectangulo,218,474,426,578,255,0,0,true
+Rectangulo,287,233,439,307,255,51,204,true
+null

@@ -55,8 +55,8 @@ public class ControlesSur extends JPanel{
 						
 						StringTokenizer st = new StringTokenizer(dato,",");
 						String fig = st.nextToken();
-						System.out.println(fig);
 						while(st.hasMoreTokens()) {
+							
 							if(fig.equals("Elipse")) {
 								figuritas[size++]=new Elipse(
 									Integer.parseInt(st.nextToken()),
@@ -117,6 +117,7 @@ public class ControlesSur extends JPanel{
 						dato = bf.readLine();
 					}
 					pf.setFiguritas(figuritas);
+					pf.setSize(size);
 					bf.close();
 				} catch (IOException e1) {
 					e1.printStackTrace();

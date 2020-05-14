@@ -1,9 +1,14 @@
+/*Andres
+ * Angela
+ */
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -19,7 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.GraphicsEnvironment;
-public class ControlesFigura extends JPanel implements ActionListener{
+public class ControlesFigura extends JPanel implements MouseListener,MouseMotionListener{
 	private JRadioButton rbElipse,
 							rbRectangulo,
 							rbLinea,
@@ -27,7 +32,6 @@ public class ControlesFigura extends JPanel implements ActionListener{
 	private JCheckBox relleno;
 	private JTextField tfTexto;
 	private JPanel pColor;
-	private JButton dibujar;
 	private JSlider slider;
 	private JComboBox fuentes;
 	private PanelFigura pf;
@@ -36,6 +40,9 @@ public class ControlesFigura extends JPanel implements ActionListener{
 		this.setPreferredSize(new Dimension(220,700));
 		
 		this.pf=pf;
+		this.pf.addMouseListener(this);
+		this.pf.addMouseMotionListener(this);
+		
 		this.rbElipse=new JRadioButton("Elipse",true);
 		this.rbRectangulo=new JRadioButton("Rectangulo");
 		this.rbLinea=new JRadioButton("Linea");
@@ -69,10 +76,11 @@ public class ControlesFigura extends JPanel implements ActionListener{
 			
 			public void mouseClicked(MouseEvent e) {
 				Color colorFigura= JColorChooser.showDialog(ControlesFigura.this, "Selecciona un color",pColor.getBackground());
+				if(colorFigura == null){
+					colorFigura = Color.BLACK;
+				}
 				pf.setColor(colorFigura);
 				pColor.setBackground(colorFigura);
-
-				
 			}
 			public void mousePressed(MouseEvent e) {		
 			}
@@ -85,9 +93,6 @@ public class ControlesFigura extends JPanel implements ActionListener{
 			}
 		});
 		
-		this.dibujar=new JButton("Dibujar");
-		this.dibujar.addActionListener(this);
-		this.add(this.dibujar);
 		
 		this.slider= new JSlider(JSlider.VERTICAL, 8, 24, 16);
 		this.slider.setMajorTickSpacing(8);
@@ -104,7 +109,7 @@ public class ControlesFigura extends JPanel implements ActionListener{
 		
 		this.add(this.slider);
 		String fonts[]=GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-		this.fuentes=new JComboBox(fonts);
+		this.fuentes= new JComboBox(fonts);
 		this.fuentes.setSelectedIndex(14);
 		this.add(this.fuentes);
 		
@@ -113,12 +118,11 @@ public class ControlesFigura extends JPanel implements ActionListener{
 	
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
-	
-	
-	
-	
+
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void mousePressed(MouseEvent e) {
+		this.pf.setX1(e.getX());
+		this.pf.setY1(e.getY());
 		if(this.rbElipse.isSelected()) {
 			this.pf.setTipoF("Elipse");
 		}else if(this.rbRectangulo.isSelected()) {
@@ -136,5 +140,39 @@ public class ControlesFigura extends JPanel implements ActionListener{
 			this.pf.setRelleno(false);
 		}
 	}
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		this.pf.setX2(e.getX());
+		this.pf.setY2(e.getY());
+		this.pf.repaint();
+		this.pf.setSoltar(true);
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		this.pf.agregarFigura();
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
 }
