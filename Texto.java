@@ -1,3 +1,6 @@
+//Andrés Díaz de León A01620020
+//Angela Rodriguez A01636960
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;

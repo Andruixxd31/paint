@@ -1,15 +1,14 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+//Andrés Díaz de León A01620020
+//Angela Rodriguez A01636960
 
+
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.JPanel;
 
 public class PanelFigura extends JPanel {
 
+	// ------------------- Atributos -------------------
 	private Figura[] figuritas;
 	private Color color;
 	private boolean relleno;
@@ -26,6 +25,8 @@ public class PanelFigura extends JPanel {
 	private int sizeFont;
 	private Figura figurita;
 	private boolean soltar;
+
+	// ------------------- Constructor -------------------
 	public PanelFigura() {
 		super();
 		this.setPreferredSize(new Dimension(800,700));
@@ -40,6 +41,7 @@ public class PanelFigura extends JPanel {
 		
 	}
 
+	// ------------------- Metodos -------------------
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		this.CrearFiguras(g);
@@ -77,6 +79,7 @@ public class PanelFigura extends JPanel {
 		this.repaint();
 	}
 
+	// ------------------- Setters y getters -------------------
 	public void setSize(int size) {
 		this.size=size;
 	}
@@ -121,7 +124,6 @@ public class PanelFigura extends JPanel {
 		
 	}
 
-	
 	public Color getColor() {
 		return color;
 	}

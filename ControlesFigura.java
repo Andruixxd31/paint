@@ -1,30 +1,14 @@
-/*Andres
- * Angela
- */
+//Andrés Díaz de León A01620020
+//Angela Rodriguez A01636960
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.*; 
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JSlider;
-import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import java.awt.GraphicsEnvironment;
 public class ControlesFigura extends JPanel implements MouseListener,MouseMotionListener{
+
+	// ------------------- Atributos -------------------
 	private JRadioButton rbElipse,
 							rbRectangulo,
 							rbLinea,
@@ -35,6 +19,8 @@ public class ControlesFigura extends JPanel implements MouseListener,MouseMotion
 	private JSlider slider;
 	private JComboBox fuentes;
 	private PanelFigura pf;
+
+	// ------------------- Constructor -------------------
 	public ControlesFigura(PanelFigura pf) {
 		super();
 		this.setPreferredSize(new Dimension(220,700));
@@ -104,7 +90,6 @@ public class ControlesFigura extends JPanel implements MouseListener,MouseMotion
 				pf.setSizeFont(slider.getValue());
 				
 			}
-
 		});
 		
 		this.add(this.slider);
