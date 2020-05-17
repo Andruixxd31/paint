@@ -1,3 +1,8 @@
+/*Andrés Díaz de León Valdés  A01620020
+Angela Rodriguez Maldonado  A01636960
+Programación orientada a Objetos Proyecto medio parcial
+Figura.java
+ */
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -21,6 +26,13 @@ public abstract class Figura {
 	public Color getColor() {
 		return this.color;
 	}
+	
+	public void setX2(int x2) {
+		this.x2 = x2;
+	}
+	public void setY2(int y2) {
+		this.y2 = y2;
+	}
 	public int getX1() {
 		return this.x1;
 	}
@@ -37,6 +49,7 @@ public abstract class Figura {
 		return this.relleno;
 				
 	}
+	
 	public void setRelleno(boolean relleno) {
 		this.relleno=relleno;
 	}

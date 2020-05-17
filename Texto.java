@@ -1,6 +1,8 @@
-//Andrés Díaz de León A01620020
-//Angela Rodriguez A01636960
-
+/*Andrés Díaz de León Valdés  A01620020
+Angela Rodriguez Maldonado  A01636960
+Programación orientada a Objetos Proyecto medio parcial
+Texto.java
+ */
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;

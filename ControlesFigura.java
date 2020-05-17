@@ -1,14 +1,32 @@
-//Andrés Díaz de León A01620020
-//Angela Rodriguez A01636960
+/*Andrés Díaz de León Valdés  A01620020
+Angela Rodriguez Maldonado  A01636960
+Programación orientada a Objetos Proyecto medio parcial
+ControlesFigura.java
+ */
 
-import java.awt.*; 
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.GraphicsEnvironment;
 public class ControlesFigura extends JPanel implements MouseListener,MouseMotionListener{
-
-	// ------------------- Atributos -------------------
 	private JRadioButton rbElipse,
 							rbRectangulo,
 							rbLinea,
@@ -19,12 +37,14 @@ public class ControlesFigura extends JPanel implements MouseListener,MouseMotion
 	private JSlider slider;
 	private JComboBox fuentes;
 	private PanelFigura pf;
-
-	// ------------------- Constructor -------------------
+	private Figura figurita;
+	private Color color;
+	private int tamañoFont;
 	public ControlesFigura(PanelFigura pf) {
 		super();
 		this.setPreferredSize(new Dimension(220,700));
-		
+		this.tamañoFont=16;
+		this.color=Color.RED;
 		this.pf=pf;
 		this.pf.addMouseListener(this);
 		this.pf.addMouseMotionListener(this);
@@ -60,24 +80,30 @@ public class ControlesFigura extends JPanel implements MouseListener,MouseMotion
 		
 		this.pColor.addMouseListener(new MouseListener() {
 			
-			public void mouseClicked(MouseEvent e) {
-				Color tmpColor = pColor.getBackground();
-				Color colorFigura= JColorChooser.showDialog(ControlesFigura.this, "Selecciona un color",pColor.getBackground());
-				if(colorFigura == null){
-					colorFigura = tmpColor;
-				}
-				pf.setColor(colorFigura);
-				pColor.setBackground(colorFigura);
-			}
-			public void mousePressed(MouseEvent e) {		
-			}
+			@Override
 			public void mouseReleased(MouseEvent e) {
-				
 			}
-			public void mouseEntered(MouseEvent e) {
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
 			}
+			
+			@Override
 			public void mouseExited(MouseEvent e) {
 			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+			
+					public void mouseClicked(MouseEvent e) {
+									Color tmpColor = pColor.getBackground();
+									color= JColorChooser.showDialog(ControlesFigura.this, "Selecciona un color",pColor.getBackground());
+									if(color == null){
+										color = tmpColor;
+									}
+									pColor.setBackground(color);
+								}
 		});
 		
 		
@@ -88,14 +114,15 @@ public class ControlesFigura extends JPanel implements MouseListener,MouseMotion
 		this.slider.setPaintTicks(true);
 		this.slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				pf.setSizeFont(slider.getValue());
+				tamañoFont=slider.getValue();
 				
 			}
+
 		});
 		
 		this.add(this.slider);
 		String fonts[]=GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-		this.fuentes= new JComboBox(fonts);
+		this.fuentes=new JComboBox(fonts);
 		this.fuentes.setSelectedIndex(14);
 		this.add(this.fuentes);
 		
@@ -107,58 +134,57 @@ public class ControlesFigura extends JPanel implements MouseListener,MouseMotion
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.pf.setX1(e.getX());
-		this.pf.setY1(e.getY());
+		
 		if(this.rbElipse.isSelected()) {
-			this.pf.setTipoF("Elipse");
+			this.figurita= new Elipse(e.getX(), e.getY(), e.getX(), e.getY(), this.color,false);
+			
+			
 		}else if(this.rbRectangulo.isSelected()) {
-			this.pf.setTipoF("Rectangulo");
+			
+			this.figurita=new Rectangulo(e.getX(), e.getY(), e.getX(), e.getY(), this.color,false);
+		
 		}else if(this.rbLinea.isSelected()) {
-			this.pf.setTipoF("Linea");
+			this.figurita=new Linea(e.getX(), e.getY(), e.getX(), e.getY(), this.color);
+			
 		}else if(this.rbTexto.isSelected()) {
-			this.pf.setTipoF("Texto");
-			this.pf.setTexto(this.tfTexto.getText());
-			this.pf.setnombreFont(""+this.fuentes.getSelectedItem());
+			this.figurita=new Texto(e.getX(), e.getY(), e.getX(), e.getY(), this.color,(""+this.fuentes.getSelectedItem()),this.tamañoFont, this.tfTexto.getText());
 		}
 		if(this.relleno.isSelected()) {
-			this.pf.setRelleno(true);
+			this.figurita.setRelleno(true);
 		}else {
-			this.pf.setRelleno(false);
+			this.figurita.setRelleno(false);
 		}
+		this.pf.setFigurita(this.figurita);
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		this.pf.setX2(e.getX());
 		this.pf.setY2(e.getY());
 		this.pf.repaint();
-		this.pf.setSoltar(true);
+		
 		
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		this.pf.agregarFigura();
 	}
-
+	
+	public void mouseClicked(MouseEvent e) {
+	}
+	
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 	}
+	public Figura getFigurita() {
+		return this.figurita;
+	}
+		
 }

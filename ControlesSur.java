@@ -1,30 +1,35 @@
-//Andrés Díaz de León A01620020
-//Angela Rodriguez A01636960
-
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
+/*Andrés Díaz de León Valdés  A01620020
+Angela Rodriguez Maldonado  A01636960
+Programación orientada a Objetos Proyecto medio parcial
+ControlesSur.java
+ */
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.StringTokenizer;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class ControlesSur extends JPanel{
 
-	// ------------------- Atributos -------------------
 	private JButton btGuardar;
 	private JButton btAbrir;
 	private PanelFigura pf;
-
-	// ------------------- Constructor -------------------
 	public ControlesSur(PanelFigura pf) {
 		super();
 		this.setPreferredSize(new Dimension(400,100));
 		this.btGuardar=new JButton("Guardar");
 		this.btAbrir=new JButton("Abrir");
 		this.pf=pf;
-		
-
-		//* Clase Anonima del btguardar
+		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		this.btGuardar.addActionListener(new ActionListener() {
 		
 			@Override
@@ -39,8 +44,8 @@ public class ControlesSur extends JPanel{
 		});
 		this.add(btGuardar);
 
+		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		
-		//* Clase Anonima del btguardar
 		this.btAbrir.addActionListener(new ActionListener() {
 			
 			@Override
