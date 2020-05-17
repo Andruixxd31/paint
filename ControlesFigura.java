@@ -61,9 +61,10 @@ public class ControlesFigura extends JPanel implements MouseListener,MouseMotion
 		this.pColor.addMouseListener(new MouseListener() {
 			
 			public void mouseClicked(MouseEvent e) {
+				Color tmpColor = pColor.getBackground();
 				Color colorFigura= JColorChooser.showDialog(ControlesFigura.this, "Selecciona un color",pColor.getBackground());
 				if(colorFigura == null){
-					colorFigura = Color.BLACK;
+					colorFigura = tmpColor;
 				}
 				pf.setColor(colorFigura);
 				pColor.setBackground(colorFigura);
